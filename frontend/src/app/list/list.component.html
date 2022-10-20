@@ -1,0 +1,23 @@
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+<div *ngFor="let cpu of cpus;index as i">
+    <div class="card">
+        <img src={{cpu.brand}} />
+        <div class="card-content">
+            <div class="card-buttons">
+                <p class="card-content-title">{{cpu.name}}</p>
+                <span class="material-symbols-outlined card-button card-edit">Edit</span>
+                <span class="material-symbols-outlined card-button card-delete">Delete</span>
+            </div>
+            <span>
+                <p><b>Coeurs Physiques :</b>&nbsp;&nbsp;{{cpu.core.physical}}</p>
+                <p><b>Coeurs Logiques :</b>&nbsp;&nbsp;{{cpu.core.thread}}</p>
+            </span>
+            <span>
+                <p><b>Fréquence de base :</b>&nbsp;&nbsp;{{cpu.frequency.base}}&nbsp;Ghz</p>
+                <p><b>Fréquence de turbo :</b>&nbsp;&nbsp;{{cpu.frequency.turbo}}&nbsp;Ghz</p>
+            </span>
+            
+            
+        </div>
+    </div>
+</div>

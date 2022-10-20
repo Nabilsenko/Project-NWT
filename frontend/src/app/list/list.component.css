@@ -1,0 +1,77 @@
+:host {
+    --gray : #e6e5e5;
+    --light-gray : #f9f9f9;
+    --title-color : #0c0636;
+}
+
+* {
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    display: flex;
+    justify-content: center;
+    
+}
+
+img {
+    height: auto;
+    width: 150px;
+}
+
+span {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: 20px;
+    justify-items: start;
+}
+
+.card {
+    display: grid;
+    grid-template-columns: 1fr 2.5fr;
+    align-items: center;
+    border: 2px solid var(--gray);
+    padding: 15px;
+    margin: 15px auto;
+    border-radius: 10px;
+    background: var(--light-gray);
+}
+
+.card-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.card-content-title {
+    font-weight: 700;
+    font-size: large;
+    color: var(--title-color);
+    border: none;
+}
+
+p{
+    border-bottom: 2px solid var(--gray);
+    padding-bottom: 5px;
+}
+
+.card-buttons {
+    display: grid;
+    grid-template-columns: 5fr 1fr 1fr;
+    border-bottom: 2px solid var(--gray);
+    align-items: center;
+
+}
+
+.card-button {
+    display: inline-block;
+    padding: 2px;
+}
+
+.card-delete {
+
+}
+
+.material-symbols-outlined {
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 48
+}

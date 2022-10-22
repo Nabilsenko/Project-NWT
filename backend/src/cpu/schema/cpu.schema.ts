@@ -12,7 +12,7 @@ import { Core } from '../../types/cpu.types';
             delete ret._id;
         },
     },
-    versionKey: false,collection: 'cpus',
+    versionKey: false,
 
 })
 export class Cpu {

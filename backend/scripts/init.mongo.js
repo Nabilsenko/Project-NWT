@@ -1,4 +1,4 @@
-db.getCollection('cpu').insertOne(
+db.getCollection('cpus').insertOne(
     {
       name : 'i7',
       brand: 'Intel',

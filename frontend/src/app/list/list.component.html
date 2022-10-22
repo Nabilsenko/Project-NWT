@@ -1,12 +1,11 @@
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 <div *ngFor="let cpu of cpus;index as i">
     <div class="card">
         <img src="{{cpu.image || cpu.brand}}" />
         <div class="card-content">
             <div class="card-buttons">
-                <p class="card-content-title">{{cpu.name}}</p>
-                <span class="material-symbols-outlined card-button card-edit">Edit</span>
-                <span class="material-symbols-outlined card-button card-delete">Delete</span>
+                <p class="card-content-title">{{cpu.name}} &nbsp;{{cpu.brand}}</p>
             </div>
             <span>
                 <p><b>Coeurs Physiques :</b>&nbsp;&nbsp;{{cpu.core.physical}}</p>

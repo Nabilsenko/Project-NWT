@@ -1,6 +1,6 @@
-import { ConflictException, Injectable, UnprocessableEntityException } from '@nestjs/common';
+import { ConflictException, Injectable, NotFoundException, UnprocessableEntityException } from '@nestjs/common';
 import {
-    catchError, map, mergeMap, Observable, of, throwError, find, filter, defaultIfEmpty
+    catchError, map, mergeMap, Observable, of, throwError, find, filter, defaultIfEmpty, from
 } from 'rxjs';
 import CpuDao from './dao/cpu.dao';
 import CreateCpuDto from './dto/create-cpu.dto';
@@ -16,15 +16,18 @@ export default class CpuService {
 
     findAll(): Observable<CpuEntity[] | void> {
         return this.cpuDao.find().pipe(
-          filter(Boolean),
-          map((cpu) => (cpu || []).map((cpu) => new CpuEntity(cpu))),
-          defaultIfEmpty(undefined),
-        );
-    }
-    
-
-    create(createCpuDto: CreateCpuDto): Observable<CpuEntity> {
-        return of(createCpuDto)
+            filter(Boolean),
+            map((cpu) => (cpu || []).map((cpu) => new CpuEntity(cpu))),
+            defaultIfEmpty(undefined),
+            );
+        }
+        
+        /*findById(id: string) {
+            return this.cpuDao.findById(id);
+        }*/
+        
+        create(createCpuDto: CreateCpuDto): Observable<CpuEntity> {
+            return of(createCpuDto)
             .pipe(
                 mergeMap((cpuDto) => this.cpuDao.save(cpuDto)),
                 catchError((err) => {
@@ -34,6 +37,11 @@ export default class CpuService {
                     return throwError(() => new UnprocessableEntityException(err.message));
                 }),
                 map((cpuCreated) => new CpuEntity(cpuCreated)),
-            );
-    }
+                );
+            }
+
+        /*Promises Versions
+        findAll_Promise(): Promise<void | CpuEntity[]>{
+            return this.cpuDao.find_Promise();
+        }*/
 }

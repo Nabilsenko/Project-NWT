@@ -8,7 +8,7 @@ export default class CpuFrequencyDto {
         description: 'Cpu base frequency in MHz',
     })
     @Type(() => Number)
-    @Expose() base: number;
+    @Expose() base: number | null;
 
     @ApiProperty({
         name: 'turbo',

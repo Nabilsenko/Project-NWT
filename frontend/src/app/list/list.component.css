@@ -47,32 +47,14 @@ span {
     border: none;
 }
 
+.trash{
+    width: 20px;
+    height: 20px;
+    place-items: end end;
+}
+
 p{
     border-bottom: 2px solid var(--gray);
     padding-bottom: 5px;
 }
 
-.card-buttons {
-    display: grid;
-    grid-template-columns: 5fr 1fr 1fr;
-    border-bottom: 2px solid var(--gray);
-    align-items: center;
-
-}
-
-.card-button {
-    display: inline-block;
-    padding: 2px;
-}
-
-.card-delete {
-
-}
-
-.material-symbols-outlined {
-  font-variation-settings:
-  'FILL' 0,
-  'wght' 400,
-  'GRAD' 0,
-  'opsz' 48
-}

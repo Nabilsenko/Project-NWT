@@ -11,4 +11,4 @@ swagger:
   tag: cpu
   path: documentation
 mongodb:
-  uri: mongodb://127.0.0.1:27017/cpu
+  uri: mongodb://localhost:27017/projet

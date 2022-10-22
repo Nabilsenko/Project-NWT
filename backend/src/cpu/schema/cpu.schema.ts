@@ -12,7 +12,8 @@ import { Core } from '../../types/cpu.types';
             delete ret._id;
         },
     },
-    versionKey: false,
+    versionKey: false,collection: 'cpus',
+
 })
 export class Cpu {
     @Prop({

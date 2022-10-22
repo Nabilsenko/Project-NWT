@@ -29,7 +29,6 @@ export class CpuService {
   }
 
   fetch(): Observable<Cpu[]> {
-    return this._http.get<Cpu[]>("http://localhost:3000/list")
-      
+    return this._http.get<Cpu[]>("http://localhost:3000/list")  
   }
 }

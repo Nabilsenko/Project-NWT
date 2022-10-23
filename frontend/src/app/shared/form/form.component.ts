@@ -63,32 +63,36 @@ export default class FormComponent implements OnInit, OnChanges {
 
     ngOnChanges(changes: any): void {
         if (changes.model && changes.model.currentValue) {
+            console.log('***** if', changes.model.currentValue);
+            
             this._model = changes.model.currentValue;
-            if (Array.isArray(changes.model.currentValue.architecture)) {
+            /*if (Array.isArray(changes.model.currentValue.architecture)) {
                 this._model.architecture = (changes.model.currentValue.architecture as Array<string>).join(' ');
             }
             if (Array.isArray(changes.model.currentValue.cache)) {
                 this._model.architecture = (changes.model.currentValue.architecture as Array<string>).join(' ');
-            }
+            }*/
             this._isUpdateMode = true;
             this._form.patchValue(this._model);
-            return;
+            //return;
+        }else {
+            console.log('***** else', changes.model.currentValue);
+            this._model = {
+                _id: '',
+                architecture: '',
+                cache: '',
+                frequency: {
+                    base: 50,
+                    turbo: 0,
+                },
+                name: '',
+                brand: '',
+                image: 'https://randomuser.me/api/portraits/lego/6.jpg',
+                core: {
+                    physical: 0,
+                    thread: 0,
+                },
         }
-        this._model = {
-            _id: '',
-            architecture: '',
-            cache: '',
-            frequency: {
-                base: 0,
-                turbo: 0,
-            },
-            name: '',
-            brand: '',
-            image: 'https://randomuser.me/api/portraits/lego/6.jpg',
-            core: {
-                physical: 0,
-                thread: 0,
-            },
         };
         this._isUpdateMode = false;
         this._form.patchValue(this._model);
@@ -115,6 +119,10 @@ export default class FormComponent implements OnInit, OnChanges {
 
     submit(cpu: any) {
         const localCpu = cpu;
+        localCpu.frequency.base = parseInt(cpu.frequency.base);
+        localCpu.frequency.turbo = parseInt(cpu.frequency.turbo);
+        localCpu.core.physical = parseInt(cpu.core.physical);
+        localCpu.core.thread = parseInt(cpu.core.thread);
         localCpu.cache = cpu.cache?.split(' ');
         localCpu.cache?.map((v: string) => parseInt(v, 10));
         localCpu.architecture = cpu.architecture?.split(' ');

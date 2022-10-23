@@ -32,8 +32,8 @@ export default class DialogComponent implements OnInit {
         this._dialogRef.close();
     }
 
-    onSave($event: Cpu) {
+    onSave(cpu: Cpu) :void {
         // eslint-disable-next-line no-underscore-dangle
-        this._dialogRef.close($event);
+        this._dialogRef.close(cpu);
     }
 }

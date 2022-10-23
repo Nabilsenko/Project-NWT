@@ -1,6 +1,6 @@
 <mat-dialog-content>
     <form novalidate [formGroup]="form">
-        <table class="full-width">
+        <table class="full-width" cellspacing="0">
             <tr>
                 <td>
                     <!-- Cpu name -->
@@ -24,11 +24,11 @@
                         </mat-error>
                     </mat-form-field>
                 </td>
-                <!-- Cpu Image -->
+                <!-- Cpu Image 
                 <td class="align-right">
                     <img width="112" [src]="form.get('photo')?.value" id="imageDisplay" alt="cpu image" (click)="imageInput.click()">
                     <input hidden (change)="onImageChange()" #imageInput type="file" name="image" id="image">
-                </td>
+                </td>-->
             </tr>
         </table>
 
@@ -39,7 +39,7 @@
         </p>
 
         <!-- Cpu Core -->
-        <table formControlName="core">
+        <table formGroupName="core">
             <tr>
                 <!-- Cpu Core Physical -->
                 <td>
@@ -57,7 +57,7 @@
         </table>
 
         <!-- Cpu Frequency -->
-        <table formControlName="frequency">
+        <table formGroupName="frequency">
             <tr>
                 <!-- Cpu Frequency Base -->
                 <td>

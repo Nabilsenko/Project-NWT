@@ -1,39 +1,39 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model, Types } from 'mongoose';
+import { Model } from 'mongoose';
+import {
+    from, Observable, map,
+} from 'rxjs';
 import { Cpu } from '../schema/cpu.schema';
-import CreateCpuDto from "../dto/create-cpu.dto";
-import {from, Observable, map, of} from "rxjs";
+import CreateCpuDto from '../dto/create-cpu.dto';
 import CpuEntity from '../entities/cpu.entity';
 
 @Injectable()
 export default class CpuDao {
     private cpuArray: CpuEntity[];
-   
+
     constructor(@InjectModel(Cpu.name) private _cpuModel: Model<Cpu>) {
         this.cpuArray = [];
     }
-    
+
     find(): Observable<Cpu[]> {
         return from(this._cpuModel.find({}).lean()).pipe(map((cpu) => ([] as Cpu[]).concat(cpu)));
     }
 
-    /*findById(id: string): Observable<Cpu | void> {
+    /* findById(id: string): Observable<Cpu | void> {
         return from(this._cpuModel.findById(id).lean());
         //return from(this._cpuModel.findOne({_id: id}));
-    }*/
-    
-    findByIdAndRemove (id: string): Observable<any> {
-        return from(this._cpuModel.findByIdAndRemove(id).lean());
-        
+    } */
 
+    findByIdAndRemove(id: string): Observable<any> {
+        return from(this._cpuModel.findByIdAndRemove(id).lean());
     }
 
     save(cpuDto: CreateCpuDto) {
         return from(new this._cpuModel(cpuDto).save());
     }
-    
-    /*Promises Versions  
+
+    /* Promises Versions
     async find_Promise() : Promise<void | CpuEntity[]>{
         this.cpuArray = []
         return this._cpuModel.find({}).lean()
@@ -51,6 +51,10 @@ export default class CpuDao {
             return new CpuEntity(cpu);
         })
         .catch((err)=> console.log(err));
-    }*/
-    
+    } */
+
+    // TODO
+    update(cpu: any) {
+        console.log('A Faire au plutôt')
+    }
 }

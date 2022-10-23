@@ -7,7 +7,6 @@ import CpuFrequencyDto from '../dto/cpu-frequency.dto';
 
 @Exclude()
 export default class CpuEntity {
-   
     @ApiProperty({
         name: '_id',
         description: 'Cpu id',

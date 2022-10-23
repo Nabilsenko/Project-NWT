@@ -35,7 +35,7 @@ export default class CpuController {
 
     /*  Observables Versions */
 
-    @ApiNoContentResponse({description: 'No cpu exists in database'})
+    @ApiNoContentResponse({ description: 'No cpu exists in database' })
     @ApiOkResponse({
         description: 'Returns an array of cpu',
         type: CpuEntity,

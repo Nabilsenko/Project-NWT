@@ -1,0 +1,88 @@
+<mat-dialog-content>
+    <form novalidate [formGroup]="form">
+        <table class="full-width">
+            <tr>
+                <td>
+                    <!-- Cpu name -->
+                    <mat-form-field class="full-width" [class.ngb15]="form.get('name')?.dirty && form.get('name')?.invalid">
+                        <input matInput placeholder="Name" formControlName="name" minlength="2" required name="name">
+                        <mat-error *ngIf="form.get('name')?.dirty && form.get('name')?.hasError('required')">
+                            Name is <strong>required</strong>
+                        </mat-error>
+                        <mat-error *ngIf="form.get('name')?.dirty && form.get('name')?.hasError('minlength')">
+                            Name is <strong>2 chars min</strong>
+                        </mat-error>
+                    </mat-form-field>
+                    <!-- Cpu brand -->
+                    <mat-form-field class="full-width">
+                        <input matInput placeholder="Brand" formControlName="brand" minlength="2" required name="brand">
+                        <mat-error *ngIf="form.get('brand')?.dirty && form.get('brand')?.hasError('required')">
+                            Brand is <strong>required</strong>
+                        </mat-error>
+                        <mat-error *ngIf="form.get('brand')?.dirty && form.get('brand')?.hasError('minlength')">
+                            Brand is <strong>2 chars min</strong>
+                        </mat-error>
+                    </mat-form-field>
+                </td>
+                <!-- Cpu Image -->
+                <td class="align-right">
+                    <img width="112" [src]="form.get('photo')?.value" id="imageDisplay" alt="cpu image" (click)="imageInput.click()">
+                    <input hidden (change)="onImageChange()" #imageInput type="file" name="image" id="image">
+                </td>
+            </tr>
+        </table>
+
+        <p>
+            <mat-form-field class="full-width">
+                <input matInput placeholder="Architecture" formControlName="architecture" required name="architecture">
+            </mat-form-field>
+        </p>
+
+        <!-- Cpu Core -->
+        <table formControlName="core">
+            <tr>
+                <!-- Cpu Core Physical -->
+                <td>
+                    <mat-form-field class="full-width">
+                        <input matInput placeholder="Physical Core" formControlName="physical" required name="physical">
+                    </mat-form-field>
+                </td>
+                <!-- Cpu Core Thread -->
+                <td>
+                    <mat-form-field class="full-width">
+                        <input matInput placeholder="Thread Core" formControlName="thread" required name="thread">
+                    </mat-form-field>
+                </td>
+            </tr>
+        </table>
+
+        <!-- Cpu Frequency -->
+        <table formControlName="frequency">
+            <tr>
+                <!-- Cpu Frequency Base -->
+                <td>
+                    <mat-form-field class="full-width">
+                        <input matInput placeholder="Base Frequency" formControlName="base" required name="base">
+                    </mat-form-field>
+                </td>
+                <!-- Cpu Frequency Turbo -->
+                <td>
+                    <mat-form-field class="full-width">
+                        <input matInput placeholder="Turbo Frequency" formControlName="turbo" name="turbo">
+                    </mat-form-field>
+                </td>
+            </tr>
+        </table>
+
+        <p>
+            <mat-form-field class="full-width">
+                <input matInput placeholder="Cache" formControlName="cache" required name="cache">
+            </mat-form-field>
+        </p>
+    </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+    <button mat-button type="button" (click)="cancel()">Cancel</button>
+    <button mat-button type="button" (click)="submit(form.value)" [disabled]="form.invalid">Save</button>
+</mat-dialog-actions>

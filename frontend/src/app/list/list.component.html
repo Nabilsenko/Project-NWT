@@ -15,8 +15,12 @@
                 <p><b>Fréquence de base :</b>&nbsp;&nbsp;{{cpu.frequency.base}}&nbsp;Ghz</p>
                 <p><b>Fréquence de turbo :</b>&nbsp;&nbsp;{{cpu.frequency.turbo}}&nbsp;Ghz</p>
             </span>
-            
-            
         </div>
     </div>
 </div>
+
+<section class="buttons-fab" *ngIf="dialogStatus === 'inactive'">
+    <button (click)="showDialog()" mat-fab color="accent" class="button-add">
+        <i class="material-icons">add</i>
+    </button>
+</section>

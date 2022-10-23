@@ -2,7 +2,16 @@ import {
     Body, ClassSerializerInterceptor, Controller, Delete, Get, Param, Post, UseInterceptors,
 } from '@nestjs/common';
 import {
-    ApiBadRequestResponse, ApiBody, ApiConflictResponse, ApiCreatedResponse, ApiNoContentResponse, ApiNotFoundResponse, ApiOkResponse, ApiParam, ApiTags, ApiUnprocessableEntityResponse,
+    ApiBadRequestResponse,
+    ApiBody,
+    ApiConflictResponse,
+    ApiCreatedResponse,
+    ApiNoContentResponse,
+    ApiNotFoundResponse,
+    ApiOkResponse,
+    ApiParam,
+    ApiTags,
+    ApiUnprocessableEntityResponse,
 } from '@nestjs/swagger';
 import { Observable } from 'rxjs';
 import { HttpInterceptor } from 'src/interceptors/http.interceptor';
@@ -22,69 +31,67 @@ export default class CpuController {
         this.cpuService = _cpuService;
     }
 
-    /****** GET CPU ********/
+    /** **** GET CPU ******* */
+
     /*  Observables Versions */
 
-
-      @ApiNoContentResponse({ description: 'No cpu exists in database' })
-      @ApiOkResponse({
+    @ApiNoContentResponse({description: 'No cpu exists in database'})
+    @ApiOkResponse({
         description: 'Returns an array of cpu',
         type: CpuEntity,
         isArray: true,
-      })
-      @Get()
-      findAll(): Observable<CpuEntity[] | void> {
-          return this.cpuService.findAll();
-        }
+    })
+    @Get()
+    findAll(): Observable<CpuEntity[] | void> {
+        return this.cpuService.findAll();
+    }
 
-    
-      /*@Get('id')
-        findById(@Param() params: HandlerParams){
-        return this.cpuService.findById(params.id);
-        }*/
-    
-        
-        /****** ADD CPU ********/
-        
-        @ApiCreatedResponse({
-            description: 'The cpu specification has been successfully created',
-            type: CpuEntity,
-        })
-        @ApiConflictResponse({
-            description: 'The cpu specification already exists in the database',
-        })
-        @ApiBadRequestResponse({
-            description: 'Payload provided is not good',
-        })
-        @ApiBody({
-            description: 'Payload to create a new cpu specification',
-            type: CreateCpuDto,
-        })
-        @Post()
-        create(@Body() createCpuDto: CreateCpuDto): Observable<CpuEntity> {
-            return this.cpuService.create(createCpuDto);
-        }
+    /* @Get('id')
+      findById(@Param() params: HandlerParams){
+      return this.cpuService.findById(params.id);
+      } */
 
-        @ApiNoContentResponse({
-            description: 'The person has been successfully deleted',
-          })
-          @ApiNotFoundResponse({
-            description: 'Person with the given "id" doesn\'t exist in the database',
-          })
-          @ApiUnprocessableEntityResponse({
-            description: "The request can't be performed in the database",
-          })
-          @ApiBadRequestResponse({ description: 'Parameter provided is not good' })
-          @ApiParam({
-            name: 'id',
-            description: 'Unique identifier of the person in the database',
-            type: String,
-            allowEmptyValue: false,
-          })
-          @Delete(':id')
-          delete(@Param() params: HandlerParams): Observable<void> {
-            return this.cpuService.delete(params.id);
-          }
+    /** **** ADD CPU ******* */
+
+    @ApiCreatedResponse({
+        description: 'The cpu specification has been successfully created',
+        type: CpuEntity,
+    })
+    @ApiConflictResponse({
+        description: 'The cpu specification already exists in the database',
+    })
+    @ApiBadRequestResponse({
+        description: 'Payload provided is not good',
+    })
+    @ApiBody({
+        description: 'Payload to create a new cpu specification',
+        type: CreateCpuDto,
+    })
+    @Post()
+    create(@Body() createCpuDto: CreateCpuDto): Observable<CpuEntity> {
+        return this.cpuService.create(createCpuDto);
+    }
+
+    @ApiNoContentResponse({
+        description: 'The person has been successfully deleted',
+    })
+    @ApiNotFoundResponse({
+        description: 'Person with the given "id" doesn\'t exist in the database',
+    })
+    @ApiUnprocessableEntityResponse({
+        description: "The request can't be performed in the database",
+    })
+    @ApiBadRequestResponse({ description: 'Parameter provided is not good' })
+    @ApiParam({
+        name: 'id',
+        description: 'Unique identifier of the person in the database',
+        type: String,
+        allowEmptyValue: false,
+    })
+    @Delete(':id')
+    delete(@Param() params: HandlerParams): Observable<void> {
+        return this.cpuService.delete(params.id);
+    }
 
     /* Promises Versions
         @Get()
@@ -92,5 +99,5 @@ export default class CpuController {
             return this.cpuService.findAll_Promise().then((cpu)=>{
                 console.log("********", cpu);
             return cpu;
-        })}*/
-    }
+        })} */
+}

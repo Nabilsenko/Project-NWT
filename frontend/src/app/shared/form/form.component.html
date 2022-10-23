@@ -26,7 +26,7 @@
                 </td>
                 <!-- Cpu Image -->
                 <td class="align-right">
-                    <img width="112" [src]="form.get('photo')?.value" alt="cpu image" (click)="imageInput.click()">
+                    <img width="112" [src]="form.get('photo')?.value" id="imageDisplay" alt="cpu image" (click)="imageInput.click()">
                     <input hidden (change)="onImageChange()" #imageInput type="file" name="image" id="image">
                 </td>
             </tr>

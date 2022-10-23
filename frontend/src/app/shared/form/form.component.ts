@@ -97,15 +97,16 @@ export default class FormComponent implements OnInit, OnChanges {
     onImageChange(): void {
         // eslint-disable-next-line no-undef
         const element = document.getElementById('image') as HTMLElement & {files: FileList} | null;
+        // eslint-disable-next-line no-undef
+        const elementImage = document.getElementById('imageDisplay') as any;
         const file = element?.files[0] as File & Blob;
         const reader = new FileReader();
-        reader.onload = (e: any) => {
-            const fileExtension = file?.name.split('.').pop();
-            const base64 = btoa(e);
-            this.image = `data:image/${fileExtension};base64,${base64}`;
+        reader.onload = (event: any) => {
+            this.image = event.target?.result;
             this._model.image = this.image;
+            elementImage.src = this.image;
         };
-        reader.readAsArrayBuffer(file);
+        reader.readAsDataURL(file);
     }
 
     cancel(): void {
@@ -117,6 +118,7 @@ export default class FormComponent implements OnInit, OnChanges {
         localCpu.cache = cpu.cache?.split(' ');
         localCpu.cache?.map((v: string) => parseInt(v, 10));
         localCpu.architecture = cpu.architecture?.split(' ');
+        localCpu.image = this.image;
         this._submit$.emit(localCpu as Cpu);
     }
 

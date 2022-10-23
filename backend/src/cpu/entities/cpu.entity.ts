@@ -9,6 +9,13 @@ import CpuFrequencyDto from '../dto/cpu-frequency.dto';
 export default class CpuEntity {
    
     @ApiProperty({
+        name: '_id',
+        description: 'Cpu id',
+    })
+    @Type(() => String)
+    @Expose() _id: string;
+
+    @ApiProperty({
         name: 'name',
         description: 'Cpu name',
     })

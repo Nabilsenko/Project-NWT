@@ -25,7 +25,13 @@ export class ListComponent implements OnInit {
       .subscribe({ next: (cpu: Cpu[]) => this._cpus = cpu, error: () => {
        }},
       );
+  }
 
+  delete(i: number): void {
+    console.log("***********************************************", i)
+    this._cpuService
+      .delete(this._cpus[i]._id as string)
+      .subscribe((id: string) => this._cpus = this._cpus.filter((c: Cpu) => c._id !== id));
   }
 
 }

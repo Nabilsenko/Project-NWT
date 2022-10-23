@@ -23,6 +23,12 @@ export default class CpuDao {
         //return from(this._cpuModel.findOne({_id: id}));
     }*/
     
+    findByIdAndRemove (id: string): Observable<any> {
+        return from(this._cpuModel.findByIdAndRemove(id).lean());
+        
+
+    }
+
     save(cpuDto: CreateCpuDto) {
         return from(new this._cpuModel(cpuDto).save());
     }

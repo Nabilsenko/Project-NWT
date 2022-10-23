@@ -1,6 +1,7 @@
 :host {
     --gray : #e6e5e5;
     --light-gray : #f9f9f9;
+    --dark-gray : #7a7979;
     --title-color : #0c0636;
 }
 
@@ -48,9 +49,16 @@ span {
 }
 
 .trash{
-    width: 20px;
-    height: 20px;
-    place-items: end end;
+    color: var(--dark-gray);
+    background: var(--gray);
+    padding: 3px;
+    border-radius: 50%;
+    margin-left: 200px;
+}
+
+.trash:hover {
+    opacity: 0.7;
+    cursor: pointer;
 }
 
 p{

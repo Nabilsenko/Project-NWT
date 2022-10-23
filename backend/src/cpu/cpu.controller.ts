@@ -1,8 +1,8 @@
 import {
-    Body, ClassSerializerInterceptor, Controller, Get, Param, Post, UseInterceptors,
+    Body, ClassSerializerInterceptor, Controller, Delete, Get, Param, Post, UseInterceptors,
 } from '@nestjs/common';
 import {
-    ApiBadRequestResponse, ApiBody, ApiConflictResponse, ApiCreatedResponse, ApiNoContentResponse, ApiOkResponse, ApiTags,
+    ApiBadRequestResponse, ApiBody, ApiConflictResponse, ApiCreatedResponse, ApiNoContentResponse, ApiNotFoundResponse, ApiOkResponse, ApiParam, ApiTags, ApiUnprocessableEntityResponse,
 } from '@nestjs/swagger';
 import { Observable } from 'rxjs';
 import { HttpInterceptor } from 'src/interceptors/http.interceptor';
@@ -64,6 +64,27 @@ export default class CpuController {
         create(@Body() createCpuDto: CreateCpuDto): Observable<CpuEntity> {
             return this.cpuService.create(createCpuDto);
         }
+
+        @ApiNoContentResponse({
+            description: 'The person has been successfully deleted',
+          })
+          @ApiNotFoundResponse({
+            description: 'Person with the given "id" doesn\'t exist in the database',
+          })
+          @ApiUnprocessableEntityResponse({
+            description: "The request can't be performed in the database",
+          })
+          @ApiBadRequestResponse({ description: 'Parameter provided is not good' })
+          @ApiParam({
+            name: 'id',
+            description: 'Unique identifier of the person in the database',
+            type: String,
+            allowEmptyValue: false,
+          })
+          @Delete(':id')
+          delete(@Param() params: HandlerParams): Observable<void> {
+            return this.cpuService.delete(params.id);
+          }
 
     /* Promises Versions
         @Get()

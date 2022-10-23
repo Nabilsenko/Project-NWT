@@ -1,6 +1,7 @@
 type Base64<imageType extends string> = `data:image/${imageType};base64${string}`
 
 export type Cpu = {
+    _id: string;
     name: string;
     brand?: string;
     architecture?: string[];

@@ -1,5 +1,5 @@
 import {
-    Component, EventEmitter, OnChanges, OnInit, Output,
+    Component, EventEmitter, Input, OnChanges, OnInit, Output,
 } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 // eslint-disable-next-line import/no-unresolved
@@ -39,6 +39,11 @@ export default class FormComponent implements OnInit, OnChanges {
         return this._form;
     }
 
+    @Input()
+    set model(value: Cpu) {
+        this._model = value;
+    }
+
     get model(): any {
         return this._model;
     }
@@ -59,14 +64,20 @@ export default class FormComponent implements OnInit, OnChanges {
     ngOnChanges(changes: any): void {
         if (changes.model && changes.model.currentValue) {
             this._model = changes.model.currentValue;
+            if (Array.isArray(changes.model.currentValue.architecture)) {
+                this._model.architecture = (changes.model.currentValue.architecture as Array<string>).join(' ');
+            }
+            if (Array.isArray(changes.model.currentValue.cache)) {
+                this._model.architecture = (changes.model.currentValue.architecture as Array<string>).join(' ');
+            }
             this._isUpdateMode = true;
             this._form.patchValue(this._model);
             return;
         }
         this._model = {
             _id: '',
-            architecture: [],
-            cache: [],
+            architecture: '',
+            cache: '',
             frequency: {
                 base: 0,
                 turbo: 0,
@@ -104,6 +115,7 @@ export default class FormComponent implements OnInit, OnChanges {
     submit(cpu: any) {
         const localCpu = cpu;
         localCpu.cache = cpu.cache?.split(' ');
+        localCpu.cache?.map((v: string) => parseInt(v, 10));
         localCpu.architecture = cpu.architecture?.split(' ');
         this._submit$.emit(localCpu as Cpu);
     }

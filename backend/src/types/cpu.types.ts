@@ -14,7 +14,7 @@ export type Cpu = {
     name: string;
     brand?: string;
     architecture?: string[];
-    image?: Base64<'png' | 'jpg'>;
+    image?: string;
     core: Core;
     frequency: Frequency;
     cache: number[]

@@ -4,22 +4,35 @@ import {
 import {
     catchError, map, mergeMap, Observable, of, throwError, find, filter, defaultIfEmpty, from, tap,
 } from 'rxjs';
+import * as Config from 'config';
 import CpuDao from './dao/cpu.dao';
 import CreateCpuDto from './dto/create-cpu.dto';
 import CpuEntity from './entities/cpu.entity';
+import ImageDao from './dao/image.dao';
+import CreateImageDto from './dto/create-image.dto';
 
 @Injectable()
 export default class CpuService {
     private readonly cpuDao: CpuDao;
 
-    constructor(_cpuDao: CpuDao) {
+    private readonly imageDao: ImageDao;
+
+    constructor(_cpuDao: CpuDao, _imageDao: ImageDao) {
         this.cpuDao = _cpuDao;
+        this.imageDao = _imageDao;
     }
 
     findAll(): Observable<CpuEntity[] | void> {
         return this.cpuDao.find().pipe(
             filter(Boolean),
-            map((cpu) => (cpu || []).map((cpu) => new CpuEntity(cpu))),
+            map((cpus) => (cpus || []).map((cpu) => {
+                const toReturn = new CpuEntity(cpu);
+                // eslint-disable-next-line no-underscore-dangle
+                if (toReturn.image === '' || !toReturn.image) {
+                    toReturn.image = 'https://randomuser.me/api/portraits/lego/6.jpg';
+                }
+                return toReturn;
+            })),
             tap((cpu) => console.log('hehey', cpu)),
             defaultIfEmpty(undefined),
         );
@@ -48,7 +61,18 @@ export default class CpuService {
                     }
                     return throwError(() => new UnprocessableEntityException(err.message));
                 }),
-                map((cpuCreated) => new CpuEntity(cpuCreated)),
+                map((cpuCreated) => {
+                    // eslint-disable-next-line no-underscore-dangle
+                    const id = cpuCreated._id;
+                    this.imageDao.save({
+                        _id: id,
+                        image: cpuCreated.image,
+                    });
+                    const cpu = new CpuEntity(cpuCreated);
+                    cpu.image = `http://${Config.get<string>('server.prodHost')}/image/${id}/`;
+                    this.cpuDao.update(cpu);
+                    return cpu;
+                }),
             );
     }
 

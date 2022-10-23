@@ -82,7 +82,7 @@ export default class FormComponent implements OnInit, OnChanges {
                 architecture: '',
                 cache: '',
                 frequency: {
-                    base: 50,
+                    base: 0,
                     turbo: 0,
                 },
                 name: '',

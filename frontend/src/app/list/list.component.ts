@@ -66,11 +66,6 @@ export class ListComponent implements OnInit {
                 mergeMap((cpu: Cpu | undefined) => this._add(cpu)),
             )
             .subscribe({
-                /**ext: (cpu: Cpu) => {
-                    this._cpus.push(cpu);
-                },*/
-                next: (cpu: Cpu) => this._cpus = this._cpus.concat(cpu),
-
                 error: (err) => {
                     console.log('Erreur !');
                     console.log(err);
@@ -85,7 +80,7 @@ export class ListComponent implements OnInit {
 
     private _add(cpu: Cpu | undefined): Observable<Cpu> {
         console.log("----------",cpu);
-        
+        this.cpus.push(cpu as Cpu)
         return this._cpuService.create(cpu as Cpu);
     }
 }

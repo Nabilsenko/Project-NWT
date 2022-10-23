@@ -1,4 +1,11 @@
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+<section class="buttons-fab" *ngIf="dialogStatus === 'inactive'">
+    <button (click)="showDialog()" mat-fab color="accent" class="add-button">
+        <i class="material-icons">add</i>
+    </button>
+</section>
+
 <div *ngFor="let cpu of cpus;index as i">
     <div class="card">
         <img src="{{cpu.image || cpu.brand}}" />
@@ -8,19 +15,14 @@
                 <mat-icon (click)="delete(i)" class="trash">delete</mat-icon>
             </div>
             <span>
-                <p><b>Coeurs Physiques :</b>&nbsp;&nbsp;{{cpu.core.physical}}</p>
-                <p><b>Coeurs Logiques :</b>&nbsp;&nbsp;{{cpu.core.thread}}</p>
+                <p><b>Physical Cores :</b>&nbsp;&nbsp;{{cpu.core.physical}}</p>
+                <p><b>Thread Cores :</b>&nbsp;&nbsp;{{cpu.core.thread}}</p>
             </span>
             <span>
-                <p><b>Fréquence de base :</b>&nbsp;&nbsp;{{cpu.frequency.base}}&nbsp;Ghz</p>
-                <p><b>Fréquence de turbo :</b>&nbsp;&nbsp;{{cpu.frequency.turbo}}&nbsp;Ghz</p>
+                <p><b>Base Frequency :</b>&nbsp;&nbsp;{{cpu.frequency.base}}&nbsp;Ghz</p>
+                <p><b>Turbo Frequency :</b>&nbsp;&nbsp;{{cpu.frequency.turbo}}&nbsp;Ghz</p>
             </span>
         </div>
     </div>
 </div>
 
-<section class="buttons-fab" *ngIf="dialogStatus === 'inactive'">
-    <button (click)="showDialog()" mat-fab color="accent" class="button-add">
-        <i class="material-icons">add</i>
-    </button>
-</section>

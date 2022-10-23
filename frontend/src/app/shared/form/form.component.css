@@ -1,3 +1,10 @@
+:host {
+    --gray : #e6e5e5;
+    --light-gray : #f9f9f9;
+    --dark-gray : #7a7979;
+    --title-color : #322585;
+}
+
 .full-width {
     width: 100%;
 }
@@ -11,5 +18,5 @@
 
 .img-choose{
     margin: 0 0 0 20px;
-    border: solid 2 px #d1d1d1;
+    border: solid 2 px var(--title-color);
 }

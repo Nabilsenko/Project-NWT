@@ -7,7 +7,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ListComponent } from './list/list.component';
@@ -32,6 +32,7 @@ import DialogComponent from './shared/dialog/dialog.component';
         MatFormFieldModule,
         MatInputModule,
         AppRoutingModule,
+        FormsModule
     ],
     providers: [],
     bootstrap: [AppComponent],

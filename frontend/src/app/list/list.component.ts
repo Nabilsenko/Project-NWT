@@ -12,17 +12,22 @@ import {filter, mergeMap, Observable} from "rxjs";
 })
 export class ListComponent implements OnInit {
     public _cpus : Cpu[];
+    public _cpus_tmp : Cpu[];
 
     private _dialogStatus: string;
 
     private _cpuDialog: MatDialogRef<DialogComponent, Cpu> | undefined;
+
+    public keyword : string;
 
     constructor(
         private _cpuService : CpuService,
         private _dialog: MatDialog,
     ) {
         this._cpus = [];
+        this._cpus_tmp = [];
         this._dialogStatus = 'inactive';
+        this.keyword = "";
     }
 
     get cpus() : Cpu[] {
@@ -35,16 +40,17 @@ export class ListComponent implements OnInit {
             .subscribe({
                 next: (cpu: Cpu[]) => {
                     this._cpus = cpu;
+                    this._cpus_tmp = this._cpus;
                 },
             });
     }
 
     delete(i: number): void {
-        console.log('***********************************************', i);
         this._cpuService
             .delete(this._cpus[i]._id as string)
             .subscribe((id: string) => {
                 this._cpus = this._cpus.filter((c: Cpu) => c._id !== id);
+                this._cpus_tmp = this._cpus;
             });
     }
 
@@ -58,8 +64,6 @@ export class ListComponent implements OnInit {
             width: '500px',
             disableClose: true,
         });
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-ignore
         this._cpuDialog.afterClosed()
             .pipe(
                 filter((cpu: Cpu | undefined) => !!cpu),
@@ -79,8 +83,12 @@ export class ListComponent implements OnInit {
     }
 
     private _add(cpu: Cpu | undefined): Observable<Cpu> {
-        console.log("----------",cpu);
         this.cpus.push(cpu as Cpu)
+        this._cpus_tmp = this._cpus;
         return this._cpuService.create(cpu as Cpu);
+    }
+
+    changeKeyword(value: any) {
+        this._cpus = this._cpus_tmp.filter((cpu) => cpu.name.concat(cpu.brand as string).toLowerCase().includes(value.toLowerCase()) );
     }
 }

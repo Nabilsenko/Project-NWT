@@ -3,10 +3,11 @@
     --light-gray : #f9f9f9;
     --dark-gray : #7a7979;
     --title-color : #322585;
+    --bg : #eeeeee;
+    --text : #333333
 }
-
+ 
 * {
-    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     display: flex;
     justify-content: center;
     
@@ -63,8 +64,8 @@ span {
 }
 
 .trash{
-    color: var(--title-color);
-    background: var(--gray);
+    color: var(--text);
+    background: var(--bg);
     padding: 3px;
     border-radius: 50%;
     /*margin-left: 200px;*/
@@ -72,7 +73,7 @@ span {
 }
 
 .trash:hover {
-    opacity: 0.7;
+    background: white;
     cursor: pointer;
 }
 
@@ -99,7 +100,7 @@ p{
   
   .instant-search,
   .instant-search__input {
-    font-family: sans-serif;
+    /* font-family: sans-serif; */
   }
   
   .instant-search,
@@ -144,7 +145,7 @@ p{
     box-sizing: border-box;
     width: 100%;
     padding: 6px;
-    background: #eeeeee;
+    background: var(--bg);
   }
   
   .instant-search__input-container:focus-within {
@@ -175,7 +176,7 @@ p{
   
   .instant-search__result {
     display: block;
-    color: #333333;
+    color: var(--text);
     text-decoration: none;
     padding: 10px;
     font-size: 0.8em;
@@ -187,11 +188,11 @@ p{
   }
   
   .instant-search__result:hover {
-    background: #eeeeee;
+    background: var(--bg);
   }
   
   .instant-search__result:not(:last-of-type) {
-    border-bottom: 1px solid #eeeeee;
+    border-bottom: 1px solid var(--bg);
   }
   
   .instant-search__title {
@@ -206,18 +207,21 @@ p{
 
   /* Add Button */
   .btn {
-    border-radius: 15px;
+    border-radius: 5px;
     margin-left: 5px;
-    background-color: #eeeeee; 
+    background-color: var(--bg); 
     border: none; 
-    color: #333333; 
+    color: var(--text); 
     padding: 14px; 
     font-size: 16px; 
     cursor: pointer; 
+    transition: visibility 0.1s, opacity 0.1s;
+
   }
   
   .btn:hover {
-    opacity: 0.8;
+    background-color: white;
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
   }
   
   .icon-btn-add {

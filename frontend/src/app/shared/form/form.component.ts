@@ -1,5 +1,10 @@
 import {
-    Component, EventEmitter, Input, OnChanges, OnInit, Output,
+    Component,
+    EventEmitter,
+    Input,
+    OnChanges,
+    OnInit,
+    Output,
 } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 // eslint-disable-next-line import/no-unresolved
@@ -64,7 +69,7 @@ export default class FormComponent implements OnInit, OnChanges {
     ngOnChanges(changes: any): void {
         if (changes.model && changes.model.currentValue) {
             console.log('***** if', changes.model.currentValue);
-            
+
             this._model = changes.model.currentValue;
             /*if (Array.isArray(changes.model.currentValue.architecture)) {
                 this._model.architecture = (changes.model.currentValue.architecture as Array<string>).join(' ');
@@ -75,7 +80,7 @@ export default class FormComponent implements OnInit, OnChanges {
             this._isUpdateMode = true;
             this._form.patchValue(this._model);
             //return;
-        }else {
+        } else {
             console.log('***** else', changes.model.currentValue);
             this._model = {
                 _id: '',
@@ -92,15 +97,17 @@ export default class FormComponent implements OnInit, OnChanges {
                     physical: 0,
                     thread: 0,
                 },
+            };
         }
-        };
         this._isUpdateMode = false;
         this._form.patchValue(this._model);
     }
 
     onImageChange(): void {
         // eslint-disable-next-line no-undef
-        const element = document.getElementById('image') as HTMLElement & {files: FileList} | null;
+        const element = document.getElementById('image') as
+            | (HTMLElement & { files: FileList })
+            | null;
         // eslint-disable-next-line no-undef
         const elementImage = document.getElementById('imageDisplay') as any;
         const file = element?.files[0] as File & Blob;
@@ -132,12 +139,20 @@ export default class FormComponent implements OnInit, OnChanges {
 
     private _buildForm(): FormGroup {
         return new FormGroup({
-            name: new FormControl('', Validators.compose([
-                Validators.required, Validators.minLength(2),
-            ])),
-            brand: new FormControl('', Validators.compose([
-                Validators.required, Validators.minLength(2),
-            ])),
+            name: new FormControl(
+                '',
+                Validators.compose([
+                    Validators.required,
+                    Validators.minLength(2),
+                ])
+            ),
+            brand: new FormControl(
+                '',
+                Validators.compose([
+                    Validators.required,
+                    Validators.minLength(2),
+                ])
+            ),
             image: new FormControl(),
             core: new FormGroup({
                 physical: new FormControl('', Validators.required),

@@ -13,6 +13,7 @@ import { AppComponent } from './app.component';
 import { ListComponent } from './list/list.component';
 import FormComponent from './shared/form/form.component';
 import DialogComponent from './shared/dialog/dialog.component';
+import { ComparatorComponent } from './comparator/comparator.component';
 
 @NgModule({
     declarations: [
@@ -20,6 +21,7 @@ import DialogComponent from './shared/dialog/dialog.component';
         ListComponent,
         FormComponent,
         DialogComponent,
+        ComparatorComponent,
     ],
     imports: [
         BrowserModule,

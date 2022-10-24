@@ -1,0 +1,119 @@
+<link
+    href="https://fonts.googleapis.com/icon?family=Material+Icons"
+    rel="stylesheet"
+/>
+<link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+/>
+
+<div class="container-sections">
+    <section class="container-list">
+        <div class="search-box-div">
+            <div id="searchUsers" class="instant-search">
+                <div class="instant-search__input-container">
+                    <input
+                        matInput
+                        [(ngModel)]="keyword_1"
+                        (ngModelChange)="changeKeyword_1($event)"
+                        class="instant-search__input"
+                        placeholder="Search Cpus"
+                    />
+                    <i class="material-icons instant-search__icon">search</i>
+                </div>
+            </div>
+            <!--<button (click)="showDialog()" class="btn"><i class="fa fa-plus icon-btn-add"></i>Add new CPU</button>
+            -->
+        </div>
+
+        <div *ngFor="let cpu of _cpus_1; index as i">
+            <div class="card">
+                <img src="{{ cpu.image || cpu.brand }}" />
+                <div class="card-content">
+                    <p class="card-content-title">
+                        {{ cpu.name }} &nbsp;{{ cpu.brand }}
+                    </p>
+                    <button (click)="addCompare_1(cpu)" class="btn">
+                        <i class="fa fa-address-book icon-btn-add"></i>Choose
+                        CPU
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="container-list">
+        <div>
+            <div id="searchUsers" class="instant-search">
+                <div class="instant-search__input-container">
+                    <input
+                        matInput
+                        [(ngModel)]="keyword_2"
+                        (ngModelChange)="changeKeyword_2($event)"
+                        class="instant-search__input"
+                        placeholder="Search Cpus"
+                    />
+                    <i class="material-icons instant-search__icon">search</i>
+                </div>
+            </div>
+            <!--<button (click)="showDialog()" class="btn"><i class="fa fa-plus icon-btn-add"></i>Add new CPU</button>
+            -->
+        </div>
+
+        <div *ngFor="let cpu of _cpus_2; index as i">
+            <div class="card">
+                <img src="{{ cpu.image || cpu.brand }}" />
+                <div class="card-content">
+                    <p class="card-content-title">
+                        {{ cpu.name }} &nbsp;{{ cpu.brand }}
+                    </p>
+                    <button (click)="addCompare_2(cpu)" class="btn">
+                        <i class="fa fa-address-book icon-btn-add"></i>Choose
+                        CPU
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<div class="comparator-container">
+    <div class="comparator">
+        <div class="cpu-battle">
+            <h2
+                class="compare-cpu compare-cpu-1"
+                *ngIf="!cpu_compare_1.brand && !cpu_compare_1.name"
+            >
+                Pick CPU nº1 above!
+            </h2>
+            <h2
+                class="compare-cpu compare-cpu-1"
+                *ngIf="cpu_compare_1.brand && cpu_compare_1.name"
+            >
+                {{ cpu_compare_1.brand + " " + cpu_compare_1.name }}
+            </h2>
+            <h1 class="vs-compare">&nbsp; VS &nbsp;</h1>
+            <h2
+                class="compare-cpu compare-cpu-2"
+                *ngIf="!cpu_compare_2.brand && !cpu_compare_2.name"
+            >
+                Pick CPU nº2 above!
+            </h2>
+            <h2
+                class="compare-cpu compare-cpu-2"
+                *ngIf="cpu_compare_2.brand && cpu_compare_2.name"
+            >
+                {{ cpu_compare_2.brand + " " + cpu_compare_2.name }}
+            </h2>
+        </div>
+        <button (click)="compare()" class="btn-compare">Compare CPUs</button>
+    </div>
+</div>
+
+<div class="comparator-container">
+    <h2 *ngIf="result.length > 2"
+                class="result"
+            >
+                {{result}}
+            </h2>
+</div>

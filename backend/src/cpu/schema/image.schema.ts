@@ -27,5 +27,3 @@ export class Image {
 }
 
 export const ImageSchema = SchemaFactory.createForClass(Image);
-
-ImageSchema.index({ _id: 1 }, { unique: true });

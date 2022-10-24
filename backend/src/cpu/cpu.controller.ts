@@ -1,5 +1,5 @@
 import {
-    Body, ClassSerializerInterceptor, Controller, Delete, Get, Param, Post, UseInterceptors,
+    Body, ClassSerializerInterceptor, Controller, Delete, Get, Param, Post, Put, UseInterceptors,
 } from '@nestjs/common';
 import {
     ApiBadRequestResponse,
@@ -19,6 +19,7 @@ import { HandlerParams } from 'src/validators/handler-params';
 import CpuService from './cpu.service';
 import CreateCpuDto from './dto/create-cpu.dto';
 import CpuEntity from './entities/cpu.entity';
+import UpdateCpuDto from "./dto/update-cpu.dto";
 
 @ApiTags('cpu')
 @Controller('cpu')
@@ -93,11 +94,11 @@ export default class CpuController {
         return this.cpuService.delete(params.id);
     }
 
-    /* Promises Versions
-        @Get()
-        find(): Promise<void | CpuEntity[]>{
-            return this.cpuService.findAll_Promise().then((cpu)=>{
-                console.log("********", cpu);
-            return cpu;
-        })} */
+    @Put(':id')
+    update(
+        @Param() params: HandlerParams,
+        @Body() updateCpuDto: UpdateCpuDto,
+    ) {
+        return this.cpuService.update(params.id, updateCpuDto);
+    }
 }

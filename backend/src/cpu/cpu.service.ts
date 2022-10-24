@@ -2,14 +2,15 @@ import {
     ConflictException, Injectable, NotFoundException, UnprocessableEntityException,
 } from '@nestjs/common';
 import {
-    catchError, map, mergeMap, Observable, of, throwError, find, filter, defaultIfEmpty, from, tap,
+    catchError, map, mergeMap, Observable, of, throwError, filter, defaultIfEmpty, tap,
 } from 'rxjs';
 import * as Config from 'config';
 import CpuDao from './dao/cpu.dao';
 import CreateCpuDto from './dto/create-cpu.dto';
 import CpuEntity from './entities/cpu.entity';
 import ImageDao from './dao/image.dao';
-import CreateImageDto from './dto/create-image.dto';
+import UpdateCpuDto from './dto/update-cpu.dto';
+import { Cpu } from './schema/cpu.schema';
 
 @Injectable()
 export default class CpuService {
@@ -67,17 +68,29 @@ export default class CpuService {
                     this.imageDao.save({
                         _id: id,
                         image: cpuCreated.image,
-                    });
-                    const cpu = new CpuEntity(cpuCreated);
-                    cpu.image = `http://${Config.get<string>('server.prodHost')}/image/${id}/`;
-                    this.cpuDao.update(cpu);
-                    return cpu;
+                    }).subscribe((updatedCpu) =>
+                        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                        // @ts-ignore
+                        // eslint-disable-next-line no-underscore-dangle,implicit-arrow-linebreak
+                        this.update(updatedCpu._id, updatedCpu));
+                    return new CpuEntity(cpuCreated);
                 }),
             );
     }
 
-    /* Promises Versions
-        findAll_Promise(): Promise<void | CpuEntity[]>{
-            return this.cpuDao.find_Promise();
-        } */
+    update(id: string, updateCpuDto: UpdateCpuDto): Observable<CpuEntity> {
+        return of(updateCpuDto).pipe(
+            mergeMap((cpuDto) => {
+                if (cpuDto.image && cpuDto.image.startsWith('data:image/')) {
+                    this.imageDao.update(id, cpuDto.image);
+                    return this.cpuDao.update(id, {
+                        ...cpuDto,
+                        image: `http://${Config.get<string>('server.prodHost')}/image/${id}`,
+                    });
+                }
+                return this.cpuDao.update(id, cpuDto);
+            }),
+            mergeMap((updatedCpu) => of(new CpuEntity(updatedCpu as Cpu))),
+        );
+    }
 }

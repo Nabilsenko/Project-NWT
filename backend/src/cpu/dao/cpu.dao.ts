@@ -6,15 +6,12 @@ import {
 } from 'rxjs';
 import { Cpu } from '../schema/cpu.schema';
 import CreateCpuDto from '../dto/create-cpu.dto';
-import CpuEntity from '../entities/cpu.entity';
+import UpdateCpuDto from "../dto/update-cpu.dto";
 
 @Injectable()
 export default class CpuDao {
-    private cpuArray: CpuEntity[];
-
-    constructor(@InjectModel(Cpu.name) private _cpuModel: Model<Cpu>) {
-        this.cpuArray = [];
-    }
+    // eslint-disable-next-line no-useless-constructor,no-empty-function
+    constructor(@InjectModel(Cpu.name) private _cpuModel: Model<Cpu>) {}
 
     find(): Observable<Cpu[]> {
         return from(this._cpuModel.find({}).lean()).pipe(map((cpu) => ([] as Cpu[]).concat(cpu)));
@@ -33,28 +30,15 @@ export default class CpuDao {
         return from(new this._cpuModel(cpuDto).save());
     }
 
-    /* Promises Versions
-    async find_Promise() : Promise<void | CpuEntity[]>{
-        this.cpuArray = []
-        return this._cpuModel.find({}).lean()
-        .then((cpu)=>{
-            cpu.forEach(item => {
-                this.cpuArray.push(new CpuEntity(item));
-            });
-            return this.cpuArray;
-        })
-        .catch((err)=> console.log(err));
-    }
-    async findOne(id : string): Promise<void | CpuEntity>{
-        return this._cpuModel.findOne({_id : id}).lean()
-        .then((cpu)=>{
-            return new CpuEntity(cpu);
-        })
-        .catch((err)=> console.log(err));
-    } */
-
-    // TODO
-    update(cpu: any) {
-        console.log('A Faire au plutôt')
+    update(
+        id: string,
+        updateCpuDto: UpdateCpuDto,
+    ): Observable<Cpu | void> {
+        return from(
+            this._cpuModel.findByIdAndUpdate(id, updateCpuDto, {
+                new: true,
+                runValidators: true,
+            }),
+        ) as Observable<Cpu | void>;
     }
 }

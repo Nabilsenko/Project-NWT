@@ -55,26 +55,20 @@ export default class CpuService {
     create(createCpuDto: CreateCpuDto): Observable<CpuEntity> {
         return of(createCpuDto)
             .pipe(
-                mergeMap((cpuDto) => this.cpuDao.save(cpuDto)),
+                mergeMap((cpuDto) => this.imageDao.save({ image: cpuDto.image }).pipe(
+                    mergeMap((savedImage) => this.cpuDao.save({
+                        ...cpuDto,
+                        // eslint-disable-next-line no-underscore-dangle
+                        image: `http://${Config.get<string>('server.prodHost')}/image/${savedImage._id}`,
+                    })),
+                )),
                 catchError((err) => {
                     if (err.code === 11000) {
                         return throwError(() => new ConflictException(`Cpu with the name '${createCpuDto.name}' already exists`));
                     }
                     return throwError(() => new UnprocessableEntityException(err.message));
                 }),
-                map((cpuCreated) => {
-                    // eslint-disable-next-line no-underscore-dangle
-                    const id = cpuCreated._id;
-                    this.imageDao.save({
-                        _id: id,
-                        image: cpuCreated.image,
-                    }).subscribe((updatedCpu) =>
-                        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-                        // @ts-ignore
-                        // eslint-disable-next-line no-underscore-dangle,implicit-arrow-linebreak
-                        this.update(updatedCpu._id, updatedCpu));
-                    return new CpuEntity(cpuCreated);
-                }),
+                map((cpuCreated) => new CpuEntity(cpuCreated)),
             );
     }
 

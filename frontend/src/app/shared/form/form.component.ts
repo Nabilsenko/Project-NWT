@@ -53,6 +53,10 @@ export default class FormComponent implements OnInit, OnChanges {
         return this._model;
     }
 
+    get isUpdateMode(): boolean {
+        return this._isUpdateMode;
+    }
+
     @Output('cancel')
     get cancel$(): EventEmitter<void> {
         return this._cancel$;
@@ -67,23 +71,15 @@ export default class FormComponent implements OnInit, OnChanges {
     ngOnInit(): void {}
 
     ngOnChanges(changes: any): void {
+        console.log(changes);
         if (changes.model && changes.model.currentValue) {
             console.log('***** if', changes.model.currentValue);
-
             this._model = changes.model.currentValue;
-            /*if (Array.isArray(changes.model.currentValue.architecture)) {
-                this._model.architecture = (changes.model.currentValue.architecture as Array<string>).join(' ');
-            }
-            if (Array.isArray(changes.model.currentValue.cache)) {
-                this._model.architecture = (changes.model.currentValue.architecture as Array<string>).join(' ');
-            }*/
+            this.image = changes.model.currentValue.image;
             this._isUpdateMode = true;
-            this._form.patchValue(this._model);
-            //return;
         } else {
             console.log('***** else', changes.model.currentValue);
             this._model = {
-                _id: '',
                 architecture: '',
                 cache: '',
                 frequency: {
@@ -92,14 +88,14 @@ export default class FormComponent implements OnInit, OnChanges {
                 },
                 name: '',
                 brand: '',
-                image: 'https://randomuser.me/api/portraits/lego/6.jpg',
+                image: '',
                 core: {
                     physical: 0,
                     thread: 0,
                 },
             };
+            this._isUpdateMode = false;
         }
-        this._isUpdateMode = false;
         this._form.patchValue(this._model);
     }
 
@@ -126,32 +122,37 @@ export default class FormComponent implements OnInit, OnChanges {
 
     submit(cpu: any) {
         const localCpu = cpu;
-        localCpu.frequency.base = parseInt(cpu.frequency.base);
-        localCpu.frequency.turbo = parseInt(cpu.frequency.turbo);
-        localCpu.core.physical = parseInt(cpu.core.physical);
-        localCpu.core.thread = parseInt(cpu.core.thread);
-        localCpu.cache = cpu.cache?.split(' ');
-        localCpu.cache?.map((v: string) => parseInt(v, 10));
-        localCpu.architecture = cpu.architecture?.split(' ');
+        localCpu.frequency.base = parseInt(cpu.frequency.base, 10);
+        localCpu.frequency.turbo = parseInt(cpu.frequency.turbo, 10);
+        localCpu.core.physical = parseInt(cpu.core.physical, 10);
+        localCpu.core.thread = parseInt(cpu.core.thread, 10);
+        if (!Array.isArray(cpu.architecture)) {
+            localCpu.architecture = cpu.architecture.split(',') as Array<string>;
+        }
+        if (!Array.isArray(cpu.cache)) {
+            localCpu.cache = cpu.cache.split(',') as Array<string>;
+            localCpu.cache.map((v: string) => parseInt(v, 10));
+        }
         localCpu.image = this.image;
         this._submit$.emit(localCpu as Cpu);
     }
 
     private _buildForm(): FormGroup {
         return new FormGroup({
+            _id: new FormControl(),
             name: new FormControl(
                 '',
                 Validators.compose([
                     Validators.required,
                     Validators.minLength(2),
-                ])
+                ]),
             ),
             brand: new FormControl(
                 '',
                 Validators.compose([
                     Validators.required,
                     Validators.minLength(2),
-                ])
+                ]),
             ),
             image: new FormControl(),
             core: new FormGroup({

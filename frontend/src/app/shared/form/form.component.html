@@ -1,5 +1,14 @@
+<h2 mat-dialog-title *ngIf="isUpdateMode">Update {{ form.get('brand')?.value }} {{ form.get('name')?.value }}</h2>
+<h2 mat-dialog-title *ngIf="!isUpdateMode">Create a new cpu</h2>
+
 <mat-dialog-content>
     <form novalidate [formGroup]="form">
+
+        <p *ngIf="isUpdateMode">
+            <span style="width: 100%">ID (disabled)</span>
+            <span style="width: 100%">{{ model._id }}</span>
+        </p>
+
         <table class="full-width" cellspacing="0">
             <tr>
                 <td>
@@ -26,9 +35,8 @@
                 </td>
                 <!-- Cpu Image -->
                 <td class="align-right">
-
-                    <img *ngIf="form.get('photo')?.value" class="img-choose" width="112" [src]="form.get('photo')?.value" id="imageDisplay" alt="cpu image" (click)="imageInput.click()">
-                    <img *ngIf="!form.get('photo')?.value" class="img-choose" width="112" src="../../../assets/no-image.jpg" id="imageDisplay" alt="cpu image" (click)="imageInput.click()">
+                    <img *ngIf="form.get('image')?.value" class="img-choose" width="112" [src]="form.get('image')?.value" id="imageDisplay" alt="cpu image" (click)="imageInput.click()">
+                    <img *ngIf="!form.get('image')?.value" class="img-choose" width="112" src="../../../assets/no-image.jpg" id="imageDisplay" alt="cpu image" (click)="imageInput.click()">
                     <input hidden class="input-photo" (change)="onImageChange()" #imageInput type="file" name="image" id="image">
                 </td>
             </tr>
@@ -36,7 +44,7 @@
 
         <p>
             <mat-form-field class="full-width">
-                <input matInput placeholder="Architecture" formControlName="architecture" required name="architecture">
+                <input matInput placeholder="Architecture (list with ' , ' as separator)" formControlName="architecture" required name="architecture">
             </mat-form-field>
         </p>
 
@@ -47,12 +55,18 @@
                 <td>
                     <mat-form-field class="full-width">
                         <input matInput placeholder="Physical Cores" formControlName="physical" required name="physical">
+                        <mat-error *ngIf="form.get('core')?.get('physical')?.dirty && form.get('core')?.get('physical')?.hasError('required')">
+                            Brand is <strong>required</strong>
+                        </mat-error>
                     </mat-form-field>
                 </td>
                 <!-- Cpu Core Thread -->
                 <td>
                     <mat-form-field class="full-width">
                         <input matInput placeholder="Thread Cores" formControlName="thread" required name="thread">
+                        <mat-error *ngIf="form.get('core')?.get('thread')?.dirty && form.get('core')?.get('thread')?.hasError('required')">
+                            Brand is <strong>required</strong>
+                        </mat-error>
                     </mat-form-field>
                 </td>
             </tr>
@@ -64,13 +78,16 @@
                 <!-- Cpu Frequency Base -->
                 <td>
                     <mat-form-field class="full-width">
-                        <input matInput placeholder="Base Frequency" formControlName="base" required name="base">
+                        <input matInput placeholder="Base Frequency (Frequency in MHz)" formControlName="base" required name="base">
+                        <mat-error *ngIf="form.get('frequency')?.get('base')?.dirty && form.get('frequency')?.get('base')?.hasError('required')">
+                            Brand is <strong>required</strong>
+                        </mat-error>
                     </mat-form-field>
                 </td>
                 <!-- Cpu Frequency Turbo -->
                 <td>
                     <mat-form-field class="full-width">
-                        <input matInput placeholder="Turbo Frequency" formControlName="turbo" name="turbo">
+                        <input matInput placeholder="Turbo Frequency (Frequency in MHz)" formControlName="turbo" name="turbo">
                     </mat-form-field>
                 </td>
             </tr>
@@ -78,7 +95,10 @@
 
         <p>
             <mat-form-field class="full-width">
-                <input matInput placeholder="Cache" formControlName="cache" required name="cache">
+                <input matInput placeholder="Cache (list with ' , ' as separator, cache value in Ko/KB) " formControlName="cache" required name="cache">
+                <mat-error *ngIf="form.get('cache')?.dirty && form.get('cache')?.hasError('required')">
+                    Brand is <strong>required</strong>
+                </mat-error>
             </mat-form-field>
         </p>
     </form>

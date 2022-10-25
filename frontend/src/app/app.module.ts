@@ -16,6 +16,7 @@ import { ListComponent } from './list/list.component';
 import FormComponent from './shared/form/form.component';
 import DialogComponent from './shared/dialog/dialog.component';
 import { ComparatorComponent } from './comparator/comparator.component';
+import { UpdateComponent } from './update/update.component';
 
 @NgModule({
     declarations: [
@@ -24,6 +25,7 @@ import { ComparatorComponent } from './comparator/comparator.component';
         FormComponent,
         DialogComponent,
         ComparatorComponent,
+        UpdateComponent,
     ],
     imports: [
         BrowserModule,
@@ -37,7 +39,7 @@ import { ComparatorComponent } from './comparator/comparator.component';
         MatFormFieldModule,
         MatInputModule,
         AppRoutingModule,
-        FormsModule
+        FormsModule,
     ],
     providers: [],
     bootstrap: [AppComponent],

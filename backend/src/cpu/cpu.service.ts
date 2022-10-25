@@ -87,4 +87,10 @@ export default class CpuService {
             mergeMap((updatedCpu) => of(new CpuEntity(updatedCpu as Cpu))),
         );
     }
+
+    findOne(id: string): Observable<CpuEntity> {
+        return this.cpuDao.findOne(id).pipe(
+            map((cpu) => new CpuEntity(cpu as Cpu)),
+        );
+    }
 }

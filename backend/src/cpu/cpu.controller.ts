@@ -98,7 +98,12 @@ export default class CpuController {
     update(
         @Param() params: HandlerParams,
         @Body() updateCpuDto: UpdateCpuDto,
-    ) {
+    ): Observable<CpuEntity> {
         return this.cpuService.update(params.id, updateCpuDto);
+    }
+
+    @Get(':id')
+    findOne(@Param() params: HandlerParams): Observable<CpuEntity> {
+        return this.cpuService.findOne(params.id);
     }
 }

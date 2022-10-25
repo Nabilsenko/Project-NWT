@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import {
-    defaultIfEmpty, filter, map, Observable, tap,
+    map, Observable,
 } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import _ from 'lodash';
 import { Cpu } from '../types/cpu.types';
 
 @Injectable({
@@ -39,12 +40,26 @@ export class CpuService {
     }
 
     create(cpu: Cpu): Observable<any> {
-        return this._http.post<Cpu>('http://localhost:3000/cpu', cpu, {
+        return this._http.post<Cpu>('http://localhost:3000/cpu', _.omit(cpu, ['_id', 'id']), {
             headers: new HttpHeaders(
                 {
                     'Content-Type': 'application/json',
                 },
             ),
         });
+    }
+
+    update(id: any, update: any): Observable<any> {
+        return this._http.put<Cpu>(`http://localhost:3000/cpu/${id}`, _.omit(update, ['_id', 'id']), {
+            headers: new HttpHeaders(
+                {
+                    'Content-Type': 'application/json',
+                },
+            ),
+        });
+    }
+
+    fetchOne(id: string): Observable<Cpu> {
+        return this._http.get<Cpu>(`http://localhost:3000/cpu/${id}`);
     }
 }

@@ -11,36 +11,32 @@ import { Cpu } from '../types/cpu.types';
     providedIn: 'root',
 })
 export class CpuService {
-    private readonly _backendURL: any;
-
-    private _defaultCpus: Cpu[];
+    private readonly _backendURL: string;
 
     constructor(private _http: HttpClient) {
-        this._backendURL = [];
+        this._backendURL = '';
 
         let baseUrl = `${environment.backend.protocol}://${environment.backend.host}`;
         if (environment.backend.port) {
             baseUrl += `:${environment.backend.port}`;
         }
 
-        Object.keys(environment.backend.endpoints).forEach((k) => this._backendURL[k] = `${baseUrl}`);
-
-        this._defaultCpus = [];
+        this._backendURL = `${baseUrl}/cpu`;
     }
 
     fetch(): Observable<Cpu[]> {
-        return this._http.get<Cpu[]>('http://localhost:3000/cpu');
+        return this._http.get<Cpu[]>(this._backendURL);
     }
 
     delete(id: string): Observable<string> {
-        return this._http.delete('http://localhost:3000/cpu/'.concat(id))
+        return this._http.delete(`${this._backendURL}/${id}`)
             .pipe(
                 map(() => id),
             );
     }
 
     create(cpu: Cpu): Observable<any> {
-        return this._http.post<Cpu>('http://localhost:3000/cpu', _.omit(cpu, ['_id', 'id']), {
+        return this._http.post<Cpu>(this._backendURL, _.omit(cpu, ['_id', 'id']), {
             headers: new HttpHeaders(
                 {
                     'Content-Type': 'application/json',
@@ -50,7 +46,7 @@ export class CpuService {
     }
 
     update(id: any, update: any): Observable<any> {
-        return this._http.put<Cpu>(`http://localhost:3000/cpu/${id}`, _.omit(update, ['_id', 'id']), {
+        return this._http.put<Cpu>(`${this._backendURL}/${id}`, _.omit(update, ['_id', 'id']), {
             headers: new HttpHeaders(
                 {
                     'Content-Type': 'application/json',
@@ -60,6 +56,6 @@ export class CpuService {
     }
 
     fetchOne(id: string): Observable<Cpu> {
-        return this._http.get<Cpu>(`http://localhost:3000/cpu/${id}`);
+        return this._http.get<Cpu>(`${this._backendURL}/${id}`);
     }
 }

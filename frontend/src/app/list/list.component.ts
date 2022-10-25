@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { filter, mergeMap, Observable } from 'rxjs';
 import { CpuService } from '../shared/cpu.service';
 import { Cpu } from '../types/cpu.types';
-import {MatDialog, MatDialogRef} from "@angular/material/dialog";
-import DialogComponent from "../shared/dialog/dialog.component";
-import {filter, mergeMap, Observable} from "rxjs";
+import DialogComponent from '../shared/dialog/dialog.component';
 
 @Component({
     selector: 'app-list',
@@ -12,6 +12,7 @@ import {filter, mergeMap, Observable} from "rxjs";
 })
 export class ListComponent implements OnInit {
     public _cpus : Cpu[];
+
     public _cpus_tmp : Cpu[];
 
     private _dialogStatus: string;
@@ -27,7 +28,7 @@ export class ListComponent implements OnInit {
         this._cpus = [];
         this._cpus_tmp = [];
         this._dialogStatus = 'inactive';
-        this.keyword = "";
+        this.keyword = '';
     }
 
     get cpus() : Cpu[] {
@@ -58,6 +59,12 @@ export class ListComponent implements OnInit {
         return this._dialogStatus;
     }
 
+    displayFrequency(value: number | undefined): string {
+        if (!value) return 'N/A';
+        if (value < 1000) return `${value} MHz`;
+        return `${(value / 1000.0).toFixed(2)} GHz`;
+    }
+
     showDialog() {
         this._dialogStatus = 'active';
         this._cpuDialog = this._dialog.open(DialogComponent, {
@@ -83,12 +90,12 @@ export class ListComponent implements OnInit {
     }
 
     private _add(cpu: Cpu | undefined): Observable<Cpu> {
-        this.cpus.push(cpu as Cpu)
+        this.cpus.push(cpu as Cpu);
         this._cpus_tmp = this._cpus;
         return this._cpuService.create(cpu as Cpu);
     }
 
     changeKeyword(value: any) {
-        this._cpus = this._cpus_tmp.filter((cpu) => cpu.name.concat(cpu.brand as string).toLowerCase().includes(value.toLowerCase()) );
+        this._cpus = this._cpus_tmp.filter((cpu) => cpu.name.concat(cpu.brand as string).toLowerCase().includes(value.toLowerCase()));
     }
 }

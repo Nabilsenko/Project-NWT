@@ -28,7 +28,7 @@
 
         <div *ngFor="let cpu of _cpus_1; index as i">
             <div class="card">
-                <img src="{{ cpu.image || cpu.brand }}" />
+                <img src="{{ cpu.image || cpu.brand }}"/>
                 <div class="card-content">
                     <p class="card-content-title">
                         {{ cpu.name }} &nbsp;{{ cpu.brand }}
@@ -62,7 +62,7 @@
 
         <div *ngFor="let cpu of _cpus_2; index as i">
             <div class="card">
-                <img src="{{ cpu.image || cpu.brand }}" />
+                <img src="{{ cpu.image || cpu.brand }}"/>
                 <div class="card-content">
                     <p class="card-content-title">
                         {{ cpu.name }} &nbsp;{{ cpu.brand }}
@@ -112,8 +112,13 @@
 
 <div class="comparator-container">
     <h2 *ngIf="result.length > 2"
-                class="result"
-            >
-                {{result}}
-            </h2>
+        class="result"
+    >
+        {{ result }}
+    </h2>
+    <div class="charts">
+        <div id="chart-core"></div>
+        <div id="chart-frequency"></div>
+        <div id="chart-cache"></div>
+    </div>
 </div>

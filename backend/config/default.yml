@@ -13,3 +13,4 @@ swagger:
   path: documentation
 mongodb:
   uri: mongodb://localhost:27017/projet
+  # uri: mongodb+srv://test:thnPZuCIqbNgXXKG@cluster0.4zvxhvl.mongodb.net/?retryWrites=true&w=majority

@@ -75,11 +75,11 @@ export default class FormComponent implements OnInit, OnChanges {
         if (changes.model && changes.model.currentValue) {
             console.log('***** if', changes.model.currentValue);
             this._model = changes.model.currentValue;
+            this.image = changes.model.currentValue.image;
             this._isUpdateMode = true;
         } else {
             console.log('***** else', changes.model.currentValue);
             this._model = {
-                _id: '',
                 architecture: '',
                 cache: '',
                 frequency: {
@@ -88,7 +88,7 @@ export default class FormComponent implements OnInit, OnChanges {
                 },
                 name: '',
                 brand: '',
-                image: 'https://randomuser.me/api/portraits/lego/6.jpg',
+                image: '',
                 core: {
                     physical: 0,
                     thread: 0,
@@ -126,9 +126,13 @@ export default class FormComponent implements OnInit, OnChanges {
         localCpu.frequency.turbo = parseInt(cpu.frequency.turbo, 10);
         localCpu.core.physical = parseInt(cpu.core.physical, 10);
         localCpu.core.thread = parseInt(cpu.core.thread, 10);
-        localCpu.cache = cpu.cache?.split(',');
-        localCpu.cache?.map((v: string) => parseInt(v, 10));
-        localCpu.architecture = cpu.architecture?.split(',');
+        if (!Array.isArray(cpu.architecture)) {
+            localCpu.architecture = cpu.architecture.split(',') as Array<string>;
+        }
+        if (!Array.isArray(cpu.cache)) {
+            localCpu.cache = cpu.cache.split(',') as Array<string>;
+            localCpu.cache.map((v: string) => parseInt(v, 10));
+        }
         localCpu.image = this.image;
         this._submit$.emit(localCpu as Cpu);
     }

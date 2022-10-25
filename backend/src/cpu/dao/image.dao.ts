@@ -7,11 +7,10 @@ import CreateImageDto from '../dto/create-image.dto';
 
 @Injectable()
 export default class ImageDao {
-    // eslint-disable-next-line no-empty-function,no-unused-vars,no-useless-constructor
+
     constructor(@InjectModel(Image.name) private _imageModel: Model<Image>) {}
 
     findById(id: string): Observable<Image | void> {
-        // eslint-disable-next-line no-underscore-dangle
         return from(this._imageModel.findById(id).lean()) as Observable<Image | void>;
     }
 

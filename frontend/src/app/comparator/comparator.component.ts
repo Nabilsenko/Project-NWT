@@ -115,9 +115,9 @@ export class ComparatorComponent implements OnInit {
 
             const difference : number = this.cpu_percent_1 - this.cpu_percent_2;
 
-            if (difference < 0) {
+            if (difference > 0) {
                 this.result = `${this.cpu_compare_1.brand?.concat(' ', this.cpu_compare_1.name)} is ${this.percentPositif(difference)}% Better than ${this.cpu_compare_2.brand?.concat(' ', this.cpu_compare_2.name)}!!`;
-            } else if (difference > 0) {
+            } else if (difference < 0) {
                 this.result = `${this.cpu_compare_2.brand?.concat(' ', this.cpu_compare_2.name)} is ${this.percentPositif(difference)}% Better than ${this.cpu_compare_2.brand?.concat(' ', this.cpu_compare_2.name)}!!`;
             } else {
                 this.result = `${this.cpu_compare_1.brand?.concat(' ', this.cpu_compare_1.name)} and ${this.cpu_compare_2.brand?.concat(' ', this.cpu_compare_2.name)} are equal in performance!!`;

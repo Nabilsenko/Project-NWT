@@ -10,17 +10,12 @@ import UpdateCpuDto from "../dto/update-cpu.dto";
 
 @Injectable()
 export default class CpuDao {
-    // eslint-disable-next-line no-useless-constructor,no-empty-function
+
     constructor(@InjectModel(Cpu.name) private _cpuModel: Model<Cpu>) {}
 
     find(): Observable<Cpu[]> {
         return from(this._cpuModel.find({}).lean()).pipe(map((cpu) => ([] as Cpu[]).concat(cpu)));
     }
-
-    /* findById(id: string): Observable<Cpu | void> {
-        return from(this._cpuModel.findById(id).lean());
-        //return from(this._cpuModel.findOne({_id: id}));
-    } */
 
     findByIdAndRemove(id: string): Observable<any> {
         return from(this._cpuModel.findByIdAndRemove(id).lean());

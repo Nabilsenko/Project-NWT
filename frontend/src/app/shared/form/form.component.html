@@ -4,9 +4,9 @@
 <mat-dialog-content>
     <form novalidate [formGroup]="form">
 
-        <p *ngIf="isUpdateMode">
-            <span style="width: 100%">ID (disabled)</span>
-            <span style="width: 100%">{{ model._id }}</span>
+        <p *ngIf="isUpdateMode" class="id-disabled">
+            <span >ID (disabled) </span>
+            <span >{{ model._id }}</span>
         </p>
 
         <table class="full-width" cellspacing="0">

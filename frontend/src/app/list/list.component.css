@@ -63,16 +63,27 @@ span {
     border: none;
 }
 
-.trash{
-    color: var(--text);
-    background: var(--bg);
-    padding: 3px;
-    border-radius: 50%;
-    /*margin-left: 200px;*/
-    place-self: start end ;
+.icon {
+  color: var(--text);
+  background: var(--bg);
+  padding: 3px;
+  border-radius: 50%;
 }
 
-.trash:hover {
+.icons {
+  place-self: start end;
+}
+
+.trash{
+    /* place-self: start end ; */
+    margin-left: 5px;
+}
+
+.edit{
+    /* place-self: start end ; */
+}
+
+.icon:hover {
     background: white;
     cursor: pointer;
 }

@@ -17,6 +17,7 @@ import FormComponent from './shared/form/form.component';
 import DialogComponent from './shared/dialog/dialog.component';
 import { ComparatorComponent } from './comparator/comparator.component';
 import { UpdateComponent } from './update/update.component';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
     declarations: [
@@ -26,6 +27,7 @@ import { UpdateComponent } from './update/update.component';
         DialogComponent,
         ComparatorComponent,
         UpdateComponent,
+        HomeComponent,
     ],
     imports: [
         BrowserModule,

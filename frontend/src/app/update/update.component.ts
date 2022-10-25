@@ -56,10 +56,15 @@ export class UpdateComponent implements OnInit {
                     },
                 };
             }),
-            mergeMap((_: {id: any, update: any}) => this._cpuService.update(_.id, _.update)),
+            mergeMap((_: {id: any, update: any}) => {
+                console.log("update test", _.update)
+                return this._cpuService.update(_.id, _.update)
+            }) ,
         ).subscribe({
             error: () => this._router.navigate(['/list']),
-            complete: () => this._router.navigate(['/list']),
+            complete: () => {
+                return this._router.navigate(['/list']);
+            } ,
         });
     }
 }

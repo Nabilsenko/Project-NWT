@@ -1,0 +1,76 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+:host {
+    --gray : #c9c9c9;
+    --light-gray : #f9f9f9;
+    --dark-gray : #383838;
+    --title-color : #322585;
+    --bg : #eeeeee;
+    --text : #333333;
+    --hover : #8ccf26;
+}
+
+.site-name {
+  font-family: 'Press Start 2P', cursive;
+  font-size: large;
+  margin-right: 50px;
+}
+
+.img-nav{
+    width: 40px;
+    margin-left: 200px;
+    margin-top: 5px;
+}
+
+.github-icon {
+  float: right;
+  font-size: large;
+}
+
+.img-nav:hover {
+    cursor: pointer;
+}
+
+ul {
+    display: flex;
+    list-style-type: none;
+    font-weight: 700;
+  }
+  
+  a {
+    text-decoration: none;
+    color: var(--gray);
+  }
+  
+  #menu {
+    display: flex;
+    background: var(--dark-gray);
+  }
+  
+  #menu a {
+    display: block;
+  }
+  
+  #menu > li > a {
+    padding: 1rem;
+  }
+  
+  #menu li:hover > a {
+    color: var(--hover);
+  }
+  
+  #menu li:hover .hidden {
+    display: block;
+  }
+  
+  .hidden {
+    display: none;
+    background: rgb(53, 53, 53);
+    position: absolute;
+    width: auto;
+  }
+  
+  .hidden li a {
+    padding: 0.6rem;
+    border-bottom: 1px solid black;
+  }
+  

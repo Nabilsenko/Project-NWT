@@ -1,2 +1,24 @@
+<ul id="menu">
+    <li>
+        <img [routerLink]="['/']" src="../assets/logo.png" class="img-nav" />
+    </li>
+    <li><a [routerLink]="['/']" class="site-name">CPUBENCH</a></li>
+    <!-- <li><a [routerLink]="['/']">Home</a></li> -->
+    <li><a [routerLink]="['list']">List of CPUs</a></li>
+    <li><a [routerLink]="['comparator']">Compare CPUS</a></li>
+    <li>
+        <a href="https://github.com/AlasDiablo/Projet-Web-Angular" target="_blank"
+            ><i class="fa fa-github github-icon"></i
+        ></a>
+    </li>
 
+    <!-- <li>
+      <a href="#">Portfolio</a>
+      <ul class="hidden">
+        <li><a href="#">Photography</a></li>
+        <li><a href="#">Web & User Interface Design</a></li>
+        <li><a href="#">Illustration</a></li>
+      </ul>
+    </li>  -->
+</ul>
 <router-outlet></router-outlet>

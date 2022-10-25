@@ -19,8 +19,10 @@
             <div class="card-content">
                 <div class="card-buttons">
                     <p class="card-content-title">{{cpu.name}} &nbsp;{{cpu.brand}}</p>
-                    <mat-icon (click)="delete(i)" class="trash">delete</mat-icon>
-                    <mat-icon [routerLink]="['/edit', cpu._id]" class="trash">edit</mat-icon>
+                    <div class="icons">
+                        <mat-icon [routerLink]="['/edit', cpu._id]" class="icon edit">edit</mat-icon>
+                        <mat-icon (click)="delete(i)" class="icon trash">delete</mat-icon>
+                    </div>
                 </div>
                 <span>
                     <p><b>Physical Cores :</b>&nbsp;&nbsp;{{cpu.core.physical}}</p>

@@ -11,9 +11,10 @@
 
 .site-name {
   font-family: 'Press Start 2P', cursive;
-  font-size: x-large;
+  font-size: large;
   margin-right: 50px;
-  margin-top: 7px;
+  font-size: x-large;
+  margin-top: 8px;
 }
 
 .img-nav{
@@ -25,6 +26,7 @@
 .github-icon {
   float: right;
   font-size: x-large;
+  margin-left: 200px;
 }
 
 .img-nav:hover {
@@ -32,17 +34,17 @@
 }
 
 ul {
-  padding: 5px;
     display: flex;
     list-style-type: none;
     font-weight: 700;
     width: 100%;
+    padding: 7px 0;
   }
   
   a {
     text-decoration: none;
     color: var(--gray);
-    font-size: 18px;
+    font-size: large;
     margin-top: 3px;
   }
   

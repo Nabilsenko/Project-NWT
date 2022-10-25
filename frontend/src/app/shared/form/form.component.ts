@@ -7,7 +7,6 @@ import {
     Output,
 } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-// eslint-disable-next-line import/no-unresolved
 import { Base64, Cpu } from '../../types/cpu.types';
 
 @Component({
@@ -15,8 +14,7 @@ import { Base64, Cpu } from '../../types/cpu.types';
     templateUrl: './form.component.html',
     styleUrls: ['./form.component.css'],
 })
-/* eslint no-underscore-dangle: 0 */
-/* eslint class-methods-use-this: 0 */
+
 export default class FormComponent implements OnInit, OnChanges {
     private readonly _form: FormGroup;
 
@@ -40,7 +38,6 @@ export default class FormComponent implements OnInit, OnChanges {
     }
 
     get form(): FormGroup {
-        // eslint-disable-next-line no-underscore-dangle
         return this._form;
     }
 
@@ -67,7 +64,6 @@ export default class FormComponent implements OnInit, OnChanges {
         return this._submit$;
     }
 
-    // eslint-disable-next-line class-methods-use-this,@typescript-eslint/no-empty-function
     ngOnInit(): void {}
 
     ngOnChanges(changes: any): void {
@@ -100,11 +96,9 @@ export default class FormComponent implements OnInit, OnChanges {
     }
 
     onImageChange(): void {
-        // eslint-disable-next-line no-undef
         const element = document.getElementById('image') as
             | (HTMLElement & { files: FileList })
             | null;
-        // eslint-disable-next-line no-undef
         const elementImage = document.getElementById('imageDisplay') as any;
         const file = element?.files[0] as File & Blob;
         const reader = new FileReader();

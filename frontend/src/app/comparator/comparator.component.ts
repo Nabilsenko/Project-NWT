@@ -126,8 +126,6 @@ export class ComparatorComponent implements OnInit {
         /* graphes code ici */
         const specCore: any = {
             $schema: 'https://vega.github.io/schema/vega-lite/v5.json',
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            // @ts-ignore
             data: {
                 values: [
                     { category: 'Physical', group: this.cpu_compare_1.name, value: this.cpu_compare_1.core.physical },
@@ -158,8 +156,6 @@ export class ComparatorComponent implements OnInit {
 
         const specFrequency: any = {
             $schema: 'https://vega.github.io/schema/vega-lite/v5.json',
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            // @ts-ignore
             data: {
                 values: [
                     { category: 'Base', group: this.cpu_compare_1.name, value: this.cpu_compare_1.frequency.base },
@@ -190,8 +186,6 @@ export class ComparatorComponent implements OnInit {
 
         const specCache: any = {
             $schema: 'https://vega.github.io/schema/vega-lite/v5.json',
-            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-            // @ts-ignore
             data: {
                 values: [],
             },

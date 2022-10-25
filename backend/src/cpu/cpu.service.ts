@@ -28,7 +28,6 @@ export default class CpuService {
             filter(Boolean),
             map((cpus) => (cpus || []).map((cpu) => {
                 const toReturn = new CpuEntity(cpu);
-                // eslint-disable-next-line no-underscore-dangle
                 if (toReturn.image === '' || !toReturn.image) {
                     toReturn.image = 'https://randomuser.me/api/portraits/lego/6.jpg';
                 }
@@ -39,16 +38,12 @@ export default class CpuService {
         );
     }
 
-    /* findById(id: string) {
-            return this.cpuDao.findById(id);
-        } */
-
     delete = (id: string): Observable<void> => this.cpuDao.findByIdAndRemove(id).pipe(
         catchError((e) => throwError(() => new UnprocessableEntityException(e.message))),
         mergeMap((personDeleted) => (personDeleted
             ? of(undefined)
             : throwError(
-                () => new NotFoundException(`Person with id '${id}' not found`),
+                () => new NotFoundException(`CPU with id '${id}' not found`),
             ))),
     );
 
@@ -58,7 +53,6 @@ export default class CpuService {
                 mergeMap((cpuDto) => this.imageDao.save({ image: cpuDto.image }).pipe(
                     mergeMap((savedImage) => this.cpuDao.save({
                         ...cpuDto,
-                        // eslint-disable-next-line no-underscore-dangle
                         image: `http://${Config.get<string>('server.prodHost')}/image/${savedImage._id}`,
                     })),
                 )),
@@ -79,7 +73,6 @@ export default class CpuService {
                     return this.imageDao.update(id, cpuDto.image).pipe(
                         mergeMap((updatedImage) => this.cpuDao.update(id, {
                             ...cpuDto,
-                            // eslint-disable-next-line no-underscore-dangle
                             image: `http://${Config.get<string>('server.prodHost')}/image/${updatedImage?._id}`,
                         })),
                     );

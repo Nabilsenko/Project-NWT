@@ -12,4 +12,4 @@ swagger:
   tag: cpu
   path: documentation
 mongodb:
-  uri: mongodb+srv://test:thnPZuCIqbNgXXKG@cluster0.4zvxhvl.mongodb.net/?retryWrites=true&w=majority
+  uri: mongodb+srv://test:iZRZIR6ilBwaoTqi@cluster0.4zvxhvl.mongodb.net/?retryWrites=true&w=majority

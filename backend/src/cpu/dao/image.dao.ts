@@ -15,19 +15,19 @@ export default class ImageDao {
         return from(this._imageModel.findById(id).lean()) as Observable<Image | void>;
     }
 
-    save(imageDto: CreateImageDto) {
+    save(imageDto: CreateImageDto): Observable<Image> {
         return from(new this._imageModel(imageDto).save());
     }
 
     update(
         id: string,
         image: string,
-    ): Observable<Image | void> {
+    ): Observable<Image> {
         return from(
             this._imageModel.findByIdAndUpdate(id, { image }, {
                 new: true,
                 runValidators: true,
             }),
-        ) as Observable<Image | void>;
+        ) as Observable<Image>;
     }
 }

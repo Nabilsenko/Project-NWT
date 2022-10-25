@@ -76,11 +76,13 @@ export default class CpuService {
         return of(updateCpuDto).pipe(
             mergeMap((cpuDto) => {
                 if (cpuDto.image && cpuDto.image.startsWith('data:image/')) {
-                    this.imageDao.update(id, cpuDto.image);
-                    return this.cpuDao.update(id, {
-                        ...cpuDto,
-                        image: `http://${Config.get<string>('server.prodHost')}/image/${id}`,
-                    });
+                    return this.imageDao.update(id, cpuDto.image).pipe(
+                        mergeMap((updatedImage) => this.cpuDao.update(id, {
+                            ...cpuDto,
+                            // eslint-disable-next-line no-underscore-dangle
+                            image: `http://${Config.get<string>('server.prodHost')}/image/${updatedImage?._id}`,
+                        })),
+                    );
                 }
                 return this.cpuDao.update(id, cpuDto);
             }),

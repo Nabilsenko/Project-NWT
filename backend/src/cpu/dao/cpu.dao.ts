@@ -41,4 +41,11 @@ export default class CpuDao {
             }),
         ) as Observable<Cpu | void>;
     }
+
+    findOne(id: string): Observable<Cpu | void> {
+        console.log(id)
+        return from(
+            this._cpuModel.findOne({ _id: id }).lean(),
+        ) as Observable<Cpu | void>;
+    }
 }

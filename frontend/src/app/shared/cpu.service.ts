@@ -47,4 +47,18 @@ export class CpuService {
             ),
         });
     }
+
+    update(id: any, update: any): Observable<any> {
+        return this._http.put<Cpu>(`http://localhost:3000/cpu/${id}`, update, {
+            headers: new HttpHeaders(
+                {
+                    'Content-Type': 'application/json',
+                },
+            ),
+        });
+    }
+
+    fetchOne(id: string): Observable<Cpu> {
+        return this._http.get<Cpu>(`http://localhost:3000/cpu/${id}`);
+    }
 }

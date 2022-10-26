@@ -1,7 +1,8 @@
 server:
   host: 127.0.0.1
   port: 3000
-  prodHost: api.cpu.cours.alasdiablo.fr
+  prodHost: 127.0.0.1:3000
+  # prodHost: api.cpu.cours.alasdiablo.fr
   cors:
     - "http://127.0.0.1:4200"
     - "http://localhost:4200"
@@ -13,5 +14,5 @@ swagger:
   tag: cpu
   path: documentation
 mongodb:
-  uri: mongodb://localhost:27017/projet
-  # uri: mongodb+srv://test:thnPZuCIqbNgXXKG@cluster0.4zvxhvl.mongodb.net/?retryWrites=true&w=majority
+  # uri: mongodb://localhost:27017/projet
+  uri: mongodb+srv://test:iZRZIR6ilBwaoTqi@cluster0.4zvxhvl.mongodb.net/?retryWrites=true&w=majority
